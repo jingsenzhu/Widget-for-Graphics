@@ -22,6 +22,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <Windows.h>
+#include "graphics.h"
+#include "extgraph.h"
 
 #define MAX_CONTENT_LENGTH 1024
 #define MAX_OUTPUT_LENGTH 65535
@@ -103,6 +105,7 @@ struct WStruct
 	void(*show)(Widget w);
 	void(*hide)(Widget w);
 	void(*activateScroll)(Widget w);
+	void(*update)(Widget w);
 
 	//particular for input widget
 	bool cursorVisible;
