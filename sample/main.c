@@ -96,4 +96,9 @@ void Main()
 	w1->show(w1);
 	registerWidget(w1);
 	free(w1);
+	w1 = newWidget("7", GW_SPINBOX);
+	setWidgetPos(w1, 2, 2, 1, 0);
+	w1->show(w1);
+	registerWidget(w1);
+	free(w1);
 }

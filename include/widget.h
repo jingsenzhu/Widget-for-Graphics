@@ -1,13 +1,6 @@
-/*
- * Copyright © 2018 failure-P32 Individual, Zhejiang University Student.
- * All Rights Reserved.
- * 
- * Permission to use, copy, modify and distribute this libarary for any use
- * But you should mark the author when using this libarary
- * And this library should not be used in advertising or commercial use
- * without a prior written permission by the author.
- */
 #pragma once
+
+#define _CRT_SECURE_NO_WARNINGS
 
 #ifdef _DEBUG
 #pragma comment(lib, "gwlibd.lib")
@@ -15,25 +8,12 @@
 #pragma comment(lib, "gwlib.lib")
 #endif
 
-#define _CRT_SECURE_NO_WARNINGS
-#define txydltql
-
+#include "graphics.h"
+#include "extgraph.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <Windows.h>
-#include "graphics.h"
-#include "extgraph.h"
-
-#define MAX_CONTENT_LENGTH 1024
-#define MAX_OUTPUT_LENGTH 65535
-#define TIMER_BLINK400 1
-#define SCROLL_WIDTH 0.15
-#define SLIDER_WIDTH 0.10
-#define SLIDER_HEIGHT 0.15
-#define BAR_HEIGHT 0.05
-#define LIST_HEIGHT 0.23
-#define LISTTRIANGLE_WIDTH 0.10
 
 typedef struct WStruct *Widget;
 typedef struct SStruct *Scroll;
@@ -56,7 +36,8 @@ enum WidgetType
 	GW_LABEL,
 	GW_OUTPUT,
 	GW_SLIDER,
-	GW_LIST
+	GW_LIST,
+	GW_SPINBOX
 };
 
 enum WidgetStatus
@@ -64,7 +45,14 @@ enum WidgetStatus
 	GW_DEFAULT,
 	GW_ON,
 	GW_SELECTED,
-	GW_CLICKED
+	GW_CLICKED,
+	//particular for spinbox
+	GW_ONUP,
+	GW_ONDOWN,
+	GW_CLICKEDUP,
+	GW_CLICKEDDOWN,
+	GW_SELECTEDUP,
+	GW_SELECTEDDOWN
 };
 
 struct SStruct
@@ -88,6 +76,7 @@ struct SStruct
 };
 
 struct WStruct
+//warning: should not directly change the private values
 {
 //public:
 	//common members of widgets
@@ -120,7 +109,7 @@ struct WStruct
 	//particular for output
 	void(*append)(Widget w, char *s);
 
-	//particular for slider
+	//particular for slider and spinbox
 	int range[2];
 
 //private:
@@ -145,6 +134,7 @@ struct DStruct
 	char colorOn[50];
 	char colorClicked[50];
 	char colorDefault[50];
+	char colorButtonDefault[50];
 	char colorFrame[50];
 	char colorFrameClicked[50];
 	char colorFrameOn[50];
